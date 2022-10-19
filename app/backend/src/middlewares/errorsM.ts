@@ -1,25 +1,11 @@
-import { Request, Response, NextFunction} from 'express';
-import CustomError from '../helpers/customError';
+import { ErrorRequestHandler } from 'express';
 
-class ErrorHandler {
-  internalError: number;
-
-  constructor(internalError = 500) {
-    this.internalError = internalError;
+const errorMiddleware: ErrorRequestHandler = async (err, _req, res, _next) => {
+  const { status, message } = err;
+  if (!status) {
+    return res.status(500).json({ message: err.message });
   }
-
-  errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-    if (err instanceof CustomError) {
-      res.status(err.status).json({ message: err.message });
-
-      return next();
-    }
-    res.status(this.internalError).json({ message: err.message });
-
-    return next();
-  };
-}
-
-const errorMiddleware = new ErrorHandler();
+  res.status(status).json({ message });
+};
 
 export default errorMiddleware;
