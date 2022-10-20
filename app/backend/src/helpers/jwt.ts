@@ -17,8 +17,9 @@ export default class Jwt {
     return token;
   }
 
-  static veriToken(token: string) {
+  static veriToken(token: string | undefined) {
     try {
+      if (!token) throw new CustomError(401, 'Token invalido');
       const check = jwt.verify(token, SECRET);
       return check;
     } catch (err) {

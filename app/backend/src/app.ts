@@ -2,6 +2,7 @@ import * as express from 'express';
 import errorMiddleware from './middlewares/errosM';
 import login from './routers/routerLogin';
 import team from './routers/routerTeam';
+import match from './routers/routerMatch';
 
 class App {
   public app: express.Express;
@@ -27,6 +28,7 @@ class App {
     this.app.use(accessControl);
     this.app.use('/', login);
     this.app.use('/', team);
+    this.app.use('/', match);
     this.app.use(errorMiddleware.errorHandler);
   }
 
