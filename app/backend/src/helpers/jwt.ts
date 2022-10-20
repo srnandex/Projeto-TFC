@@ -19,11 +19,11 @@ export default class Jwt {
 
   static veriToken(token: string | undefined) {
     try {
-      if (!token) throw new CustomError(401, 'Token invalido');
+      if (!token) throw new CustomError(401, 'Token must be a valid token');
       const check = jwt.verify(token, SECRET);
       return check;
     } catch (err) {
-      throw new CustomError(401, 'Token invalido');
+      throw new CustomError(401, 'Token must be a valid token');
     }
   }
 }
