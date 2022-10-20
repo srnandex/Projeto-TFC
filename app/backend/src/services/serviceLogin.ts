@@ -20,4 +20,11 @@ export default class LoginService {
     const token = Jwt.createToken(login);
     return token;
   }
+
+  static async Validation(token: string | undefined) {
+    if (!token) throw new CustomError(400, 'Token não existe');
+    const user = Jwt.veriToken(token) as ILogin;
+    const findUser = await UserModel.findOne({ where: { email: user.email } }) as UserModel;
+    return findUser.role;
+  }
 }

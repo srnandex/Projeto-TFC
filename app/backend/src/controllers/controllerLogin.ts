@@ -11,4 +11,15 @@ export default class LoginController {
       next(error);
     }
   }
+
+  static async loginValidation(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { authorization } = req.headers;
+      const role = await LoginService.Validation(authorization);
+
+      res.status(200).json({ role });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
