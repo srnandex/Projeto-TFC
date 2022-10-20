@@ -1,11 +1,11 @@
 import { IFinalLeaderBoard, IMatchesLeaderboard } from '../interfaces/ILeaderboard.interface';
-import FormatAwayLeaderboard from './UAway';
-import FormatHomeLeaderboard from './UHome';
+import UAway from './UAway';
+import UHome from './UHome';
 
 export default class FormatLeaderboard {
-  static getEfficiency = (hM: IMatchesLeaderboard[], aM: IMatchesLeaderboard[]) => {
-    const sumPoints = FormatHomeLeaderboard.getPoints(hM)
-      + FormatAwayLeaderboard.getPoints(aM);
+  static goalsMatchsEffi = (hM: IMatchesLeaderboard[], aM: IMatchesLeaderboard[]) => {
+    const sumPoints = UHome.getPoints(hM)
+      + UAway.getPoints(aM);
     const sumGames = hM.length + aM.length;
 
     const result = (sumPoints / (sumGames * 3)) * 100;
@@ -15,23 +15,23 @@ export default class FormatLeaderboard {
   static leaderboard = (teamName: string, hM: IMatchesLeaderboard[], aM: IMatchesLeaderboard[]) => {
     const result = {
       name: teamName,
-      totalPoints: FormatHomeLeaderboard.getPoints(hM) + FormatAwayLeaderboard.getPoints(aM),
+      totalPoints: UHome.getPoints(hM) + UAway.getPoints(aM),
       totalGames: hM.length + aM.length,
-      totalVictories: FormatHomeLeaderboard.getVictories(hM)
-      + FormatAwayLeaderboard.getVictories(aM),
-      totalDraws: FormatHomeLeaderboard.getDraws(hM) + FormatAwayLeaderboard.getDraws(aM),
-      totalLosses: FormatHomeLeaderboard.getLosses(hM) + FormatAwayLeaderboard.getLosses(aM),
-      goalsFavor: FormatHomeLeaderboard.getGoalsInFavor(hM)
-      + FormatAwayLeaderboard.getGoalsInFavor(aM),
-      goalsOwn: FormatHomeLeaderboard.getGoalsOwn(hM) + FormatAwayLeaderboard.getGoalsOwn(aM),
-      goalsBalance: FormatHomeLeaderboard.getGoalsBalance(hM)
-      + FormatAwayLeaderboard.getGoalsBalance(aM),
-      efficiency: this.getEfficiency(hM, aM),
+      totalVictories: UHome.getVictories(hM)
+      + UAway.getVictories(aM),
+      totalDraws: UHome.getDraws(hM) + UAway.getDraws(aM),
+      totalLosses: UHome.getLosses(hM) + UAway.getLosses(aM),
+      goalsFavor: UHome.getGoalsInFavor(hM)
+      + UAway.getGoalsInFavor(aM),
+      goalsOwn: UHome.getGoalsOwn(hM) + UAway.getGoalsOwn(aM),
+      goalsBalance: UHome.getGoalsBalance(hM)
+      + UAway.getGoalsBalance(aM),
+      efficiency: this.goalsMatchsEffi(hM, aM),
     };
     return result;
   };
 
-  static orderLeaderboard = (leaderboard: IFinalLeaderBoard[]) => {
+  static orgLeaderboard = (leaderboard: IFinalLeaderBoard[]) => {
     const leaderboardSorted = leaderboard.sort((a, b) => (
       b.totalPoints - a.totalPoints
       || b.totalVictories - a.totalVictories

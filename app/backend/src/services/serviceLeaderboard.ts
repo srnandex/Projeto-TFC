@@ -45,7 +45,7 @@ export default class LeaderboardService {
       const data = UtilLeaderboard.leaderboard(teamName, homeMatches, awayMatches);
       return data;
     });
-    const organAZ = UtilLeaderboard.orderLeaderboard(randomTeamsMatches);
+    const organAZ = UtilLeaderboard.orgLeaderboard(randomTeamsMatches);
     return organAZ;
   }
 }

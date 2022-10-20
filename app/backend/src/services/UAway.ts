@@ -77,6 +77,8 @@ export default class FormatAwayLeaderboard {
     return data;
   };
 
+  // StackOverFlow
+
   static orderLeaderboard = (leaderboard: IFinalLeaderBoard[]) => {
     const leaderboardSorted = leaderboard.sort((a, b) => (
       b.totalPoints - a.totalPoints
